@@ -298,4 +298,3 @@ function summarizeProducts(products) {
 // Inicializa la renderización de productos en la página y el historial de pedidos.
 renderProducts();
 updateOrderHistory();
-
