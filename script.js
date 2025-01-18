@@ -115,7 +115,6 @@ function getFormattedTimestamp() {
     const options = {
         hour: 'numeric',
         minute: 'numeric',
-        second: 'numeric',
         hour12: true,
     };
     const time = now.toLocaleTimeString('es-ES', options);
