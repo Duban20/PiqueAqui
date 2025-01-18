@@ -334,5 +334,6 @@ function createEditSection(order) {
     return editSection;
 }
 
-// Llama a la función para renderizar los productos al cargar la página.
+// Inicializa la renderización de productos en la página y el historial de pedidos.
 renderProducts();
+updateOrderHistory();
