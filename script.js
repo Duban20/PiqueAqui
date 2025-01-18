@@ -1,62 +1,32 @@
 // Objeto que contiene el catálogo de productos, organizado por categorías y precios.
 const catalogo = {
-    "Salchipapas": {
-        "Sencilla": 14000,
-        "Salvajada": 20000,
-        "RancheraSuiza": 24000,
-        "Suiza": 21000,
-        "DobleRanchera": 24000,
-        "Americana": 20000,
-        "ElitePara2": 36000,
-        "ElitePara4": 64000
+     "Picaditas": {
+        "Picadita Clásica": 8000,
+        "Picadita Dúo Chori-Clásica": 14000,
+        "Picadita Burichorizo": 9000,
+        "Picadita Dúo Butichorizo": 16000,
+        "Morcilla": 6000,
+        "Picadita Pique Aquí": 15000,
+        "Picadita Sexy": 13000,
+        "Picadita Exótica": 14000,
+        "Picadita Mampana": 23000
     },
-    "Patacones": {
-        "Pollo": 16000,
-        "Mixto": 18000,
-        "Combinado": 16000,
-        "RancheroSuizo": 20000,
-        "SuizoPollo": 20000,
-        "RancheroPollo": 20000,
-        "PataconElite": 24000
+    "Maduritos": {
+        "Madurito Relleno Fundido": 8000,
+        "Madurito Elegante": 11000,
+        "Madurito Coqueto": 11000,
+        "Madurito Ranchero": 11000
     },
-    "Desgranados": {
-        "Pollo": 22000,
-        "Mixto": 24000,
-        "Combinado": 22000,
-        "SuizoPollo": 24000,
-        "RancheroPollo": 24000,
-        "DesgranadoElite": 26000
-    },
-    "Perros": {
-        "Sencillo": 7000,
-        "DobleSalchi": 9000,
-        "PolliPerro": 11000,
-        "Ranchero": 15000,
-        "Suizo": 16000,
-        "MegaSuizo": 18000,
-        "Americano": 12000,
-        "PerroElite": 19000
-    },
-    "Arepas Desgranadas": {
-        "Pollo": 18000,
-        "Mixta": 18000,
-        "RancheraSuiza": 20000,
-        "SuizaPollo": 20000,
-        "RancheraPollo": 20000,
-        "ArepaElite": 26000
-    },
-    "Hamburguesas": {
-        "Carne": 16000,
-        "Pollo": 16000,
-        "Combinada": 21000,
-        "DobleCarne": 21000,
-        "TociBurger": 19000,
-        "EliteBurger": 24000
+    "Adicionales": {
+        "Lluvia de Queso Costeño": 3000,
+        "Porción de Papa Criolla": 4000
     },
     "Bebidas": {
-        "Gaseosa 1.5": 8000,
-        "Gaseosa Personal": 4000,
-        "Botella de Agua": 3000
+        "Jugo de Corozo": 3000,
+        "Jugo Hit": 4000,
+        "Agua": 3000,
+        "Gaseosa Postobón": 4000,
+        "CocaCola": 4000
     }
 };
 
