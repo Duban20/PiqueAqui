@@ -30,6 +30,7 @@ const catalogo = {
     }
 };
 
+// Objeto que contiene el catálogo de productos, organizado por categorías y precios.
 // Variable global para el contador de pedidos.
 let orderCounter = JSON.parse(localStorage.getItem('orderCounter')) || 1;
 
@@ -47,19 +48,10 @@ function saveOrderCounter() {
     localStorage.setItem('orderCounter', JSON.stringify(orderCounter));
 }
 
-
 // Inicializa el total del pedido y un array para los productos seleccionados.
 let total = 0;
 let selectedProducts = [];
 let editingOrderIndex = null;
-
-// Función para calcular el siguiente pedidoId disponible.
-function getNextPedidoId() {
-    if (orderHistory.length === 0) return 1; // Si no hay pedidos, el ID será 1.
-    const ids = orderHistory.map(order => parseInt(order.pedidoId.split(' ')[1])); // Extrae los números de los IDs.
-    return Math.max(...ids) + 1; // Encuentra el máximo y suma 1.
-}
-
 
 // Selecciona los elementos del DOM para mostrar los productos y el total.
 const productList = document.getElementById('productList');
@@ -111,6 +103,20 @@ function updateTotal() {
     totalDisplay.textContent = `Total: $${total}`;
 }
 
+// Función para obtener la fecha y hora formateadas en formato 12 horas con AM/PM.
+function getFormattedTimestamp() {
+    const now = new Date();
+    const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+    };
+    const time = now.toLocaleTimeString('es-ES', options);
+    const date = now.toLocaleDateString('es-ES');
+    return `${date} a las ${time}`;
+}
+
 // Función para finalizar el pedido.
 function finalizeOrder() {
     const mesa = document.getElementById('mesa').value;
@@ -126,14 +132,15 @@ function finalizeOrder() {
         descripcion,
         productos: [...selectedProducts],
         total,
-        pedidoId: `Pedido ${orderCounter}`
+        pedidoId: `Pedido ${orderCounter}`,
+        timestamp: getFormattedTimestamp() // Obtiene la fecha y hora formateadas
     };
 
     orderHistory.push(order);
     saveOrdersToLocalStorage();
 
-    orderCounter++; //incremental el contador.
-    saveOrderCounter(); // guarda el nuevo valor en el storage.
+    orderCounter++; // Incrementa el contador.
+    saveOrderCounter(); // Guarda el nuevo valor en el storage.
 
     selectedProducts = [];
     total = 0;
@@ -168,12 +175,6 @@ function deleteOrder(index) {
     }
 }
 
-// Función para habilitar la edición de un pedido.
-function editOrder(index) {
-    editingOrderIndex = index;
-    updateOrderHistory();
-}
-
 // Función para actualizar la vista del historial de pedidos.
 function updateOrderHistory() {
     orderHistoryContainer.innerHTML = '';
@@ -188,77 +189,25 @@ function updateOrderHistory() {
             const orderDiv = document.createElement('div');
             orderDiv.innerHTML = `
                 <h4>${order.pedidoId}</h4>
-                <p>Mesa: ${order.mesa}</p>
-                <p>Descripción: ${order.descripcion}</p>
+                <p><b>Fecha y Hora:</b> ${order.timestamp}</p> <!-- Muestra fecha y hora en formato 12h con AM/PM -->
+                <p><b>Mesa:</b> ${order.mesa}</p>
+                <p><b>Descripción:</b> ${order.descripcion}</p>
                 <ul>
                     ${summarizeProducts(order.productos).map(p => `<li>${p.producto} (${p.categoria}) x${p.cantidad}: $${p.total}</li>`).join('')}
                 </ul>
-                <p>Total: $${order.total}</p>
-                <button class="green-btn" onclick="editOrder(${index})">Editar</button>
+                <p><b>Total:</b> $${order.total}</p>
                 <button class="red-btn" onclick="deleteOrder(${index})">Eliminar</button>
             `;
 
             orderHistoryContainer.appendChild(orderDiv);
-
-            // Si el pedido está siendo editado, mostrar la sección de edición.
-            if (editingOrderIndex === index) {
-                const editSection = createEditSection(order);
-                orderDiv.appendChild(editSection);
-            }
         });
     }
-}
-
-// Función para agregar un producto al pedido editado.
-function addProductToOrder(order, producto, precio, categoria) {
-    order.productos.push({ producto, precio, categoria });
-    recalculateTotal(order);
-    updateOrderHistory();
-}
-
-// Función para eliminar un producto de un pedido editado.
-function removeProductFromOrder(index) {
-    const order = orderHistory[editingOrderIndex];
-    order.productos.splice(index, 1);
-    recalculateTotal(order);
-    updateOrderHistory();
-}
-
-// Función para recalcular el total de un pedido editado.
-function recalculateTotal(order) {
-    order.total = order.productos.reduce((sum, p) => sum + p.precio, 0);
-    saveOrdersToLocalStorage();
-}
-
-// Función para guardar un pedido después de ser editado.
-function saveEditedOrder() {
-    const order = orderHistory[editingOrderIndex];
-
-    // Actualiza los campos de mesa y descripción con los valores nuevos
-    order.mesa = document.getElementById('editMesa').value;
-    order.descripcion = document.getElementById('editDescripcion').value;
-
-    // Guarda los cambios en el almacenamiento local
-    saveOrdersToLocalStorage();
-
-    editingOrderIndex = null; // Termina el proceso de edición
-    alert('Pedido actualizado.');
-
-    // Actualiza la vista del historial de pedidos
-    updateOrderHistory();
-}
-   
-// Función para cancelar la edición de un pedido.
-function cancelEdit() {
-    editingOrderIndex = null;
-    updateOrderHistory();
 }
 
 // Función para resumir los productos de un pedido, calculando la cantidad y el total por producto.
 function summarizeProducts(products) {
     const summary = {};
 
-    // Recorre los productos y los agrupa por nombre, calculando la cantidad de cada uno.
     products.forEach(({ producto, precio, categoria }) => {
         if (!summary[producto]) {
             summary[producto] = { producto, precio, categoria, cantidad: 0 };
@@ -266,60 +215,10 @@ function summarizeProducts(products) {
         summary[producto].cantidad += 1;
     });
 
-    // Devuelve un arreglo con los productos, agregando el total (precio * cantidad).
     return Object.values(summary).map(p => ({
         ...p,
         total: p.precio * p.cantidad
     }));
-}
-
-// Función para crear la sección de edición de un pedido.
-function createEditSection(order) {
-    const editSection = document.createElement('div');
-    editSection.classList.add('edit-section');
-    editSection.innerHTML = `
-        <h4>Editando ${order.pedidoId}</h4>
-        <label for="editMesa">Mesa:</label>
-        <input type="text" id="editMesa" value="${order.mesa || ''}" placeholder="Número de mesa">
-        <label for="editDescripcion">Descripción:</label>
-        <input type="text" id="editDescripcion" value="${order.descripcion}" placeholder="Descripción del pedido">
-        <h5>Agregar Producto</h5>
-        <div id="editProductList"></div>
-        <button class="green-btn" onclick="saveEditedOrder()">Guardar cambios</button>
-        <button class="red-btn" onclick="cancelEdit()">Cancelar</button>
-    `;
-
-    const productList = editSection.querySelector('#editProductList');
-
-    // Lista los productos que ya están en el pedido.
-    order.productos.forEach((producto, index) => {
-        const productDiv = document.createElement('div');
-        productDiv.innerHTML = `
-            <span>${producto.producto} (${producto.categoria}) - $${producto.precio}</span>
-            <button class="red-btn" onclick="removeProductFromOrder(${index})">Eliminar</button>
-        `;
-        productList.appendChild(productDiv);
-    });
-
-    // Agrega los botones para añadir más productos del catálogo.
-    for (const [categoria, productos] of Object.entries(catalogo)) {
-        const categoryDiv = document.createElement('div');
-        const categoryTitle = document.createElement('h5');
-        categoryTitle.textContent = categoria;
-
-        categoryDiv.appendChild(categoryTitle);
-        for (const [producto, precio] of Object.entries(productos)) {
-            const addButton = document.createElement('button');
-            addButton.textContent = `${producto} - $${precio}`;
-            addButton.classList.add('blue-btn');
-            addButton.onclick = () => addProductToOrder(order, producto, precio, categoria);
-            categoryDiv.appendChild(addButton);
-        }
-
-        productList.appendChild(categoryDiv);
-    }
-
-    return editSection;
 }
 
 // Inicializa la renderización de productos en la página y el historial de pedidos.
