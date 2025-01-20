@@ -79,23 +79,53 @@ function saveOrdersToLocalStorage() {
     localStorage.setItem('orders', JSON.stringify(orderHistory));
 }
 
-// Función para renderizar los productos en el catálogo en la interfaz.
 function renderProducts() {
     for (const [categoria, productos] of Object.entries(catalogo)) {
-        const categoryTitle = document.createElement('h3');
-        categoryTitle.textContent = categoria;
-        productList.appendChild(categoryTitle);
+        // Crear un contenedor para cada categoría
+        const categoryContainer = document.createElement('div');
+        categoryContainer.classList.add('category-container');
 
-        // Se agregan botones para cada producto con su precio.
+        // Crear el botón de la categoría
+        const categoryButton = document.createElement('button');
+        categoryButton.classList.add('category-btn');
+        categoryButton.innerHTML = `${categoria} <span class="icon">+</span>`; // Agregar ícono dinámico
+        categoryContainer.appendChild(categoryButton);
+
+        // Crear el contenedor para la lista de productos (inicialmente oculto)
+        const productList = document.createElement('div');
+        productList.classList.add('product-list');
+        productList.style.maxHeight = '0'; // Ocultar inicialmente
+        productList.style.overflow = 'hidden'; // Ocultar el contenido fuera de los límites
+        categoryContainer.appendChild(productList);
+
+        // Agregar los productos de la categoría al contenedor oculto
         for (const [producto, precio] of Object.entries(productos)) {
-            const button = document.createElement('button');
-            button.classList.add('blue-btn');
-            button.textContent = `${producto}: $${precio}`;
-            button.onclick = () => addToInvoice(producto, precio, categoria); // Al hacer clic se agrega el producto a la factura
-            productList.appendChild(button);
+            const productButton = document.createElement('button');
+            productButton.classList.add('blue-btn');
+            productButton.textContent = `${producto}: $${precio}`;
+            productButton.onclick = () => addToInvoice(producto, precio, categoria); // Agregar producto al pedido
+            productList.appendChild(productButton);
         }
+
+        // Agregar funcionalidad para mostrar/ocultar la lista de productos con animación
+        categoryButton.onclick = () => {
+            const isExpanded = productList.style.maxHeight !== '0px';
+            if (isExpanded) {
+                productList.style.maxHeight = '0'; // Contraer
+                categoryButton.querySelector('.icon').textContent = '+'; // Cambiar ícono
+            } else {
+                productList.style.maxHeight = `${productList.scrollHeight}px`; // Expandir
+                categoryButton.querySelector('.icon').textContent = '-'; // Cambiar ícono
+            }
+        };
+
+        // Agregar todo al contenedor principal
+        const mainProductList = document.getElementById('productList'); // El contenedor principal en el DOM
+        mainProductList.appendChild(categoryContainer);
     }
 }
+
+
 
 // Función para agregar un producto a la lista de productos seleccionados.
 function addToInvoice(producto, precio, categoria) {
