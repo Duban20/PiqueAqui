@@ -216,3 +216,54 @@ button {
     outline: none; /* Elimina el contorno del botón */
     border: none; /* Elimina el borde del botón */
 }
+
+.category-container {
+    margin-bottom: 10px;
+}
+
+.category-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-btn:hover {
+    background-color: #0056b3;
+}
+
+.product-list {
+    margin-left: 20px;
+    transition: max-height 0.3s ease-out; /* Transición suave */
+}
+
+.blue-btn {
+    display: block;
+    margin: 5px 0;
+    padding: 8px;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.blue-btn:hover {
+    background-color: #117a8b;
+}
+
+.icon {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+}
