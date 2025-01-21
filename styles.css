@@ -9,13 +9,28 @@ body, html {
 
 /* contenedor principal */
 .container {
-    padding: 0px; /* Agrega un relleno de 20px dentro del contenedor */
-    max-width: 800px; /* Limita el ancho máximo del contenedor a 800px */
-    margin: 0 auto; /* Centra el contenedor en la página */
-    height: 100%; /* Hace que el contenedor ocupe toda la altura disponible */
-    display: flex; /* Usamos flexbox para distribuir el contenido */
-    flex-direction: column; /* Coloca los elementos de arriba hacia abajo */
+    padding: 20px; /* Relleno interior */
+    max-width: 100%; /* Asegura que ocupe el 100% del ancho en pantallas pequeñas */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    margin: 0 auto; /* Centrado */
+    height: 100vh; /* Usa toda la altura de la pantalla */
+    display: flex; /* Usamos Flexbox */
+    flex-direction: column; /* Disposición vertical */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #fff; /* Fondo blanco */
+    overflow: hidden; /* Evita que el contenido se desborde */
+    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
 }
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px; /* Menos relleno en pantallas pequeñas */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra más ligera en móviles */
+    }
+}
+
+
 
 /* cabecera */
 .header {
@@ -217,53 +232,3 @@ button {
     border: none; /* Elimina el borde del botón */
 }
 
-.category-container {
-    margin-bottom: 0px;
-}
-
-.category-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.category-btn:hover {
-    background-color: #0056b3;
-}
-
-.product-list {
-    margin-left: 20px;
-    transition: max-height 0.3s ease-out; /* Transición suave */
-}
-
-.blue-btn {
-    display: block;
-    margin: 5px 0;
-    padding: 8px;
-    background-color: #17a2b8;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.blue-btn:hover {
-    background-color: #117a8b;
-}
-
-.icon {
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 10px;
-}
