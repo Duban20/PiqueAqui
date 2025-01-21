@@ -25,7 +25,7 @@ const catalogo = {
         "Jugo de Corozo": 3000,
         "Jugo Hit": 4000,
         "Agua": 3000,
-        "Gaseosa Postobón": 4000,
+        "Postobón": 4000,
         "CocaCola": 4000
     }
 };
@@ -88,14 +88,13 @@ function renderProducts() {
         // Crear el botón de la categoría
         const categoryButton = document.createElement('button');
         categoryButton.classList.add('category-btn');
-        categoryButton.innerHTML = `${categoria} <span class="icon">+</span>`; // Agregar ícono dinámico
+        categoryButton.textContent = categoria;
         categoryContainer.appendChild(categoryButton);
 
         // Crear el contenedor para la lista de productos (inicialmente oculto)
         const productList = document.createElement('div');
         productList.classList.add('product-list');
-        productList.style.maxHeight = '0'; // Ocultar inicialmente
-        productList.style.overflow = 'hidden'; // Ocultar el contenido fuera de los límites
+        productList.style.display = 'none'; // Ocultar inicialmente
         categoryContainer.appendChild(productList);
 
         // Agregar los productos de la categoría al contenedor oculto
@@ -107,16 +106,9 @@ function renderProducts() {
             productList.appendChild(productButton);
         }
 
-        // Agregar funcionalidad para mostrar/ocultar la lista de productos con animación
+        // Agregar funcionalidad para mostrar/ocultar la lista de productos
         categoryButton.onclick = () => {
-            const isExpanded = productList.style.maxHeight !== '0px';
-            if (isExpanded) {
-                productList.style.maxHeight = '0'; // Contraer
-                categoryButton.querySelector('.icon').textContent = '+'; // Cambiar ícono
-            } else {
-                productList.style.maxHeight = `${productList.scrollHeight}px`; // Expandir
-                categoryButton.querySelector('.icon').textContent = '-'; // Cambiar ícono
-            }
+            productList.style.display = productList.style.display === 'none' ? 'block' : 'none';
         };
 
         // Agregar todo al contenedor principal
@@ -127,12 +119,54 @@ function renderProducts() {
 
 
 
+// Objeto que almacenará las cantidades de cada producto
+let cart = {};
+
 // Función para agregar un producto a la lista de productos seleccionados.
 function addToInvoice(producto, precio, categoria) {
     selectedProducts.push({ producto, precio, categoria });
+    // Si el producto ya está en el carrito, incrementamos la cantidad
+    if (cart[producto]) {
+        cart[producto]++;
+    } else {
+        // Si el producto no está en el carrito, lo agregamos con cantidad 1
+        cart[producto] = 1;
+    }
+    
+    // Actualizamos la visualización de la cantidad al lado del producto
+    updateProductQuantity(producto);
+    
     total += precio;
     updateTotal();
 }
+
+// Función para actualizar la cantidad de un producto en la interfaz
+function updateProductQuantity(producto) {
+    const productButtons = document.querySelectorAll('.product-btn');
+    
+    // Recorremos los botones de los productos para encontrar el que coincide con el nombre del producto
+    productButtons.forEach(button => {
+        if (button.textContent.startsWith(producto)) {
+            // Buscamos el nombre del producto en el texto del botón
+            const quantity = cart[producto];
+            button.textContent = `${producto}: $${catalogo[categoria][producto]} x${quantity}`; // Actualizamos el texto con la cantidad
+        }
+    });
+}
+
+// Función para actualizar el carrito visualmente
+function updateCartDisplay() {
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = ''; // Limpiamos el carrito actual
+    
+    // Recorremos el carrito y mostramos los productos con las cantidades
+    for (const producto in cart) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${producto}: x${cart[producto]}`;
+        cartItems.appendChild(listItem);
+    }
+}
+
 
 // Función para actualizar el total mostrado en la interfaz.
 function updateTotal() {
