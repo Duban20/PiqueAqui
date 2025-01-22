@@ -18,7 +18,7 @@ body, html {
     flex-direction: column; /* Disposición vertical */
     border-radius: 15px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    background-color: #808080  ; /* Fondo blanco */
+    background-color: #white; /* Fondo blanco */
     overflow: hidden; /* Evita que el contenido se desborde */
     box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
 }
@@ -55,7 +55,7 @@ body, html {
     border: 1px solid #ccc; /* Borde gris alrededor de la lista */
     padding: 10px; /* Relleno dentro de la lista */
     border-radius: 15px; /* Bordes redondeados */
-    background-color: #808080 ; /* Fondo blanco */
+    background-color: #white; /* Fondo blanco */
     margin-bottom: 20px; /* Espacio debajo de la lista */
 }
 
