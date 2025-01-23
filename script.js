@@ -15,14 +15,15 @@ const catalogo = {
         "Madurito Relleno Fundido": 8000,
         "Madurito Elegante": 11000,
         "Madurito Coqueto": 11000,
-        "Madurito Ranchero": 11000
+        "Madurito Ranchero": 13000
     },
     "Adicionales": {
         "Lluvia de Queso Costeño": 3000,
         "Porción de Papa Criolla": 4000
     },
     "Bebidas": {
-        "Jugo de Corozo": 3000,
+        "Corozo": 3000,
+        "Maracuyá": 3000,
         "Jugo Hit": 4000,
         "Agua": 3000,
         "Postobón": 4000,
