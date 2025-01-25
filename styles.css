@@ -185,6 +185,13 @@ body, html {
     background-color: #c82333; /* Cambia el color cuando se pasa el mouse sobre el botón */
 }
 
+.green-btn.ver-carrito {
+    background-color: #117a65; /* Un verde diferente para distinguirlo */
+}
+
+.green-btn.ver-carrito:hover {
+    background-color: #0b5345; /* Un tono más oscuro al pasar el mouse */
+}
 
 /* botones de la seccion de edicion */
 .edit-section button {
@@ -232,3 +239,43 @@ button {
     border: none; /* Elimina el borde del botón */
 }
 
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  z-index: 1000;
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: -25px;
+  right: -10px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.modal li {
+  margin: 10px 0;
+}
+
+.modal p {
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: right;
+}
