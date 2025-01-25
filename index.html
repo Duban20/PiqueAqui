@@ -1,96 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Establece el juego de caracteres a UTF-8 -->
     <meta charset="UTF-8">
-    
-    <!-- Define la vista para dispositivos móviles (hace que la página se ajuste correctamente a diferentes tamaños de pantalla) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Título de la página que aparece en la pestaña del navegador -->
     <title>Pique Aquí</title>
-    
-    <!-- Vincula el archivo CSS para los estilos -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <!-- Título principal de la página -->
         <h1 id="tituloPrincipal">Pique Aquí</h1>
 
-        <!-- Sección para ingresar los detalles de la mesa y la descripción del producto -->
         <div class="header">
-            <input type="text" id="mesa" placeholder="Mesa"> <!-- Campo para ingresar el número de mesa -->
-            <input type="text" id="descripcion" placeholder="Descripción del producto"> <!-- Campo para describir el producto -->
+            <input type="text" id="mesa" placeholder="Mesa">
+            <input type="text" id="descripcion" placeholder="Descripción del producto">
         </div>
 
-        <!-- Lista de productos, donde se agregarán dinámicamente los productos -->
-        <div class="product-list" id="productList">
-            <!-- Los productos se cargarán aquí desde JavaScript -->
-        </div>
+        <div class="product-list" id="productList"></div>
 
-        <!-- Muestra el total del pedido -->
         <div class="total" id="total">Total: $0</div>
 
-        <!-- Botones de acciones disponibles para el usuario -->
         <div class="actions">
-            <!-- Botón para finalizar el pedido -->
             <button class="green-btn" onclick="finalizeOrder()">Finalizar Pedido</button>
-            <!-- Botón para ver el historial de pedidos -->
             <button class="green-btn" onclick="toggleOrderHistory()">Ver Historial de Pedidos</button>
-             <button class="red-btn" onclick="resetOrderCounter()">Resetear Contador de Pedidos</button>
+            <button id="showCartButton" class="green-btn">Ver Pedido Actual</button>
+            <button class="red-btn" onclick="resetOrderCounter()">Resetear Contador de Pedidos</button>
         </div>
 
-        <!-- Ventana emergente (popup) para mostrar el historial de pedidos -->
         <div class="popup" id="popup">
             <div class="popup-content">
-                <!-- Botón para cerrar el popup de historial de pedidos -->
                 <span class="close-btn" onclick="toggleOrderHistory()">&times;</span>
-                
-                <!-- Contenedor para mostrar el historial de pedidos -->
-                <div class="order-history" id="orderHistory">
-                    <!-- Los pedidos anteriores se mostrarán aquí -->
-                </div>
-
-                <!-- Sección para editar un pedido existente (oculta por defecto) -->
+                <div class="order-history" id="orderHistory"></div>
                 <div id="orderEditSection" style="display: none;">
                     <h4>Editar Pedido</h4>
                     <div id="editProductList"></div>
                     <div class="actions">
-                        <!-- Botón para guardar los cambios en el pedido -->
                         <button class="green-btn" onclick="updateEditedOrder()">Guardar Cambios</button>
-                        <!-- Botón para cancelar la edición -->
                         <button class="green-btn" onclick="cancelEdit()">Cancelar</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Nuevo modal para mostrar el contenido del carrito -->
+        <div id="cartModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-btn" id="closeCartModal">&times;</span>
+                <h3>Pedido Actual</h3>
+                <ul id="cartItemsList"></ul>
+                <p id="cartTotal"></p>
+            </div>
+        </div>
     </div>
 
-    <!-- Sección adicional para editar el pedido, visible para el cliente -->
     <div id="orderEditSection" style="display: none;">
         <h4>Editar Pedido</h4>
-        <!-- Campo para editar el nombre del cliente -->
         <label for="editCliente">Cliente:</label>
         <input type="text" id="editCliente" placeholder="Nombre del cliente">
-        
-        <!-- Campo para editar la descripción del pedido -->
         <label for="editDescripcion">Descripción:</label>
         <input type="text" id="editDescripcion" placeholder="Descripción del pedido">
-        
         <h5>Agregar Producto</h5>
-        <!-- Lista de productos que se pueden agregar al pedido -->
         <div id="editProductList"></div>
-        
         <div class="actions">
-            <!-- Botón para guardar los cambios en el pedido -->
             <button class="green-btn" onclick="updateEditedOrder()">Guardar Cambios</button>
-            <!-- Botón para cancelar la edición -->
             <button class="green-btn" onclick="cancelEdit()">Cancelar</button>
         </div>
     </div>
 
-    <!-- Vincula el archivo JavaScript para la funcionalidad de la página -->
     <script src="script.js"></script>
 </body>
 </html>
