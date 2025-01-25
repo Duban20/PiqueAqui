@@ -1,3 +1,4 @@
+
 // Objeto que contiene el catálogo de productos, organizado por categorías y precios.
 const catalogo = {
     "Picaditas": {
@@ -119,6 +120,57 @@ function renderProducts() {
     }
 }
 
+// Selecciona los elementos del DOM
+const showCartButton = document.getElementById('showCartButton');
+const cartModal = document.getElementById('cartModal');
+const closeCartModal = document.getElementById('closeCartModal');
+const cartItemsList = document.getElementById('cartItemsList');
+const cartTotalDisplay = document.getElementById('cartTotal');
+
+// Función para cargar el contenido del carrito en el modal
+function loadCartModal() {
+  cartItemsList.innerHTML = ''; // Limpia el contenido previo
+  let totalCartAmount = 0;
+
+  for (const producto in cart) {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${producto} x${cart[producto]}: $${cart[producto] * catalogo[findCategory(producto)][producto]}`;
+    cartItemsList.appendChild(listItem);
+
+    // Calcula el total del carrito
+    totalCartAmount += cart[producto] * catalogo[findCategory(producto)][producto];
+  }
+
+  cartTotalDisplay.textContent = `Total: $${totalCartAmount}`;
+}
+
+// Función para encontrar la categoría de un producto en el catálogo
+function findCategory(producto) {
+  for (const categoria in catalogo) {
+    if (catalogo[categoria][producto] !== undefined) {
+      return categoria;
+    }
+  }
+  return null; // Devuelve null si no encuentra el producto
+}
+
+// Event listener para abrir el modal
+showCartButton.addEventListener('click', () => {
+  loadCartModal();
+  cartModal.style.display = 'block';
+});
+
+// Event listener para cerrar el modal
+closeCartModal.addEventListener('click', () => {
+  cartModal.style.display = 'none';
+});
+
+// Cierra el modal si el usuario hace clic fuera de él
+window.addEventListener('click', (event) => {
+  if (event.target === cartModal) {
+    cartModal.style.display = 'none';
+  }
+});
 
 
 // Objeto que almacenará las cantidades de cada producto
