@@ -126,6 +126,11 @@ let cart = {};
 
 // Función para agregar un producto a la lista de productos seleccionados.
 function addToInvoice(producto, precio, categoria) {
+    // Mostrar mensaje de confirmación con el nombre del producto seleccionado
+    const confirmSelection = confirm(`Has seleccionado: ${producto}. ¿Deseas añadirlo al pedido?`);
+    if (!confirmSelection) {
+        return; // Salir de la función si el usuario no confirma
+    }
     selectedProducts.push({ producto, precio, categoria });
     // Si el producto ya está en el carrito, incrementamos la cantidad
     if (cart[producto]) {
