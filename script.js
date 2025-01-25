@@ -1,4 +1,3 @@
-
 // Objeto que contiene el catálogo de productos, organizado por categorías y precios.
 const catalogo = {
     "Picaditas": {
