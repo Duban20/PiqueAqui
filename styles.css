@@ -14,7 +14,7 @@ body, html {
     width: 100%; /* Ocupa todo el ancho disponible */
     margin: 0 auto; /* Centrado */
     height: 100vh; /* Usa toda la altura de la pantalla */
-    background-image: url('./fuego.jpg');
+    background-image: url('./fuego.avif');
     background-size: 2400px 1080px; /* Ajusta manualmente el tamaño */
     background-repeat: no-repeat; /* No repetir */
     background-position: center center; /* Centrar la imagen */
