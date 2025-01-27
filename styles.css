@@ -1,3 +1,4 @@
+
 /* estilo global del cuerpo de la pagina */
 body, html {
     font-family: Roboto, sans-serif; /* Se define la fuente principal del texto */
@@ -20,9 +21,9 @@ body, html {
     background-position: center center; /* Centrar la imagen */
     display: flex; /* Usamos Flexbox */
     flex-direction: column; /* Disposición vertical */
-    border-radius: 15px; /* Bordes redondeados */
+    border-radius: 0px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    background-color: #white; /* Fondo blanco */
+    background-color: white; /* Fondo blanco */
     overflow: hidden; /* Evita que el contenido se desborde */
     box-sizing: border-box; /* Asegura que el padding no afecte el tamaño */
 }
@@ -59,7 +60,7 @@ body, html {
     border: 1px solid #ccc; /* Borde gris alrededor de la lista */
     padding: 10px; /* Relleno dentro de la lista */
     border-radius: 15px; /* Bordes redondeados */
-    background-color: #white; /* Fondo blanco */
+    background-color: white; /* Fondo blanco */
     margin-bottom: 20px; /* Espacio debajo de la lista */
 }
 
@@ -74,8 +75,8 @@ body, html {
     width: 100%; /* El botón tiene un ancho completo */
     padding: 10px; /* Relleno dentro del botón */
     margin: 5px 0; /* Espacio vertical entre botones */
-    background-color: #1a5276; /* Color de fondo */
-    color: white; /* Color del texto */
+    background-color: #b5c200; /* Color de fondo */
+    color: #333; /* Color del texto */
     border: none; /* Elimina el borde del botón */
     border-radius: 13px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor cuando se pasa por encima */
@@ -84,7 +85,7 @@ body, html {
 }
 
 .product-list button:hover {
-    background-color: #002442; /* Cambia el color de fondo cuando se pasa el mouse sobre el botón */
+    background-color: #6c7400; /* Cambia el color de fondo cuando se pasa el mouse sobre el botón */
 }
 
 /* total de la compra */
@@ -92,23 +93,23 @@ body, html {
     font-size: 20px; /* Tamaño de fuente más grande */
     font-weight: bold; /* Fuente en negrita */
     margin-bottom: 20px; /* Espacio debajo */
-    color: #1b4f72; /* Color gris oscuro */
+    color: #b5c200; /* Color gris oscuro */
 }
 
 /* Botón de acciones*/
 .green-btn {
     padding: 18px 20px; /* Relleno dentro del botón */
     margin: 5px; /* Espacio alrededor del botón */
-    background-color: #1b4f72; /* Color de fondo del boton*/
-    font-weight: 700; /* Fuente en negrita */
-    color: white; /* Texto negro */
+    background-color: #b5c200; /* Color de fondo del boton*/
+    font-weight: 800; /* Fuente en negrita */
+    color: rgb(51, 51, 51); /* Texto negro */
     border: none; /* Sin borde */
     border-radius: 10px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor cuando se pasa por encima */
 }
 
 .green-btn:hover {
-    background-color: #002442; /* Cambia el color cuando se pasa el mouse sobre el botón */
+    background-color: #6c7400; /* Cambia el color cuando se pasa el mouse sobre el botón */
 }
 
 /* Estilo del popup */
@@ -155,7 +156,7 @@ body, html {
     text-align: center; /* Centra el texto */
     font-size: 60px; /* Aumenta el tamaño del título */
     font-weight: 700; /* Fuente en negrita */
-    color: #1b4f72; /* Color dorado */
+    color: #b5c200; /* Color dorado */
     text-transform: uppercase; /* Convierte el texto a mayúsculas */
     letter-spacing: 1px; /* Espaciado entre las letras */
     margin-top: 0; /* Elimina el espacio superior */
@@ -189,13 +190,6 @@ body, html {
     background-color: #c82333; /* Cambia el color cuando se pasa el mouse sobre el botón */
 }
 
-.green-btn.ver-carrito {
-    background-color: #117a65; /* Un verde diferente para distinguirlo */
-}
-
-.green-btn.ver-carrito:hover {
-    background-color: #0b5345; /* Un tono más oscuro al pasar el mouse */
-}
 
 /* botones de la seccion de edicion */
 .edit-section button {
@@ -204,8 +198,8 @@ body, html {
 }
 
 .edit-section .blue-btn {
-    background-color: #154360; /* Color de fondo del boton */
-    color: white; /* Texto blanco */
+    background-color: #b5c200; /* Color de fondo del boton */
+    color: #333; /* Texto blanco */
     font-size: 14px; /* Tamaño de la fuente */
     padding: 10px 10px; /* Relleno del botón */
     border-radius: 15px; /* Bordes redondeados */
@@ -213,7 +207,7 @@ body, html {
 }
 
 .edit-section .blue-btn:hover {
-    background-color: #07253e; /* Cambia el color cuando se pasa el mouse sobre el botón */
+    background-color: #6c7400; /* Cambia el color cuando se pasa el mouse sobre el botón */
 }
 
 
