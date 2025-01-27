@@ -42,30 +42,30 @@
         </div>
 
         <!-- Ventana emergente (popup) para mostrar el historial de pedidos -->
-<div class="popup" id="popup">
-    <!-- Botón para cerrar el popup (fijo) -->
-    <span class="close-btn" onclick="toggleOrderHistory()">&times;</span>
-    
-    <div class="popup-content">
-        <!-- Contenedor para mostrar el historial de pedidos -->
-        <div class="order-history" id="orderHistory">
-            <!-- Los pedidos anteriores se mostrarán aquí -->
-        </div>
+        <div class="popup" id="popup">
+            <div class="popup-content">
+                <!-- Botón para cerrar el popup de historial de pedidos -->
+                <span class="close-btn" onclick="toggleOrderHistory()">&times;</span>
+                
+                <!-- Contenedor para mostrar el historial de pedidos -->
+                <div class="order-history" id="orderHistory">
+                    <!-- Los pedidos anteriores se mostrarán aquí -->
+                </div>
 
-        <!-- Sección para editar un pedido existente (oculta por defecto) -->
-        <div id="orderEditSection" style="display: none;">
-            <h4>Editar Pedido</h4>
-            <div id="editProductList"></div>
-            <div class="actions">
-                <!-- Botón para guardar los cambios en el pedido -->
-                <button class="green-btn" onclick="updateEditedOrder()">Guardar Cambios</button>
-                <!-- Botón para cancelar la edición -->
-                <button class="green-btn" onclick="cancelEdit()">Cancelar</button>
+                <!-- Sección para editar un pedido existente (oculta por defecto) -->
+                <div id="orderEditSection" style="display: none;">
+                    <h4>Editar Pedido</h4>
+                    <div id="editProductList"></div>
+                    <div class="actions">
+                        <!-- Botón para guardar los cambios en el pedido -->
+                        <button class="green-btn" onclick="updateEditedOrder()">Guardar Cambios</button>
+                        <!-- Botón para cancelar la edición -->
+                        <button class="green-btn" onclick="cancelEdit()">Cancelar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
 
     <!-- Sección adicional para editar el pedido, visible para el cliente -->
     <div id="orderEditSection" style="display: none;">
