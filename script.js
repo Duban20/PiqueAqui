@@ -271,6 +271,9 @@ function updateOrderHistory() {
     } else {
         orderHistory.forEach((order, index) => {
             const orderDiv = document.createElement('div');
+            orderDiv.classList.add('order-container'); // Agregar la clase para el contenedor del pedido
+            
+            // Crear el contenido del pedido
             orderDiv.innerHTML = 
                 `<h4>${order.pedidoId}</h4>
                 <p><strong>Hora:</strong> ${order.timestamp}</p> <!-- Modificado para mostrar la hora -->
@@ -282,7 +285,8 @@ function updateOrderHistory() {
                 <p><strong>Total:</strong> $${order.total}</p> <!-- Modificado para mostrar "Total" en negrita -->
                 <button class="green-btn" onclick="editOrder(${index})">Editar</button>
                 <button class="red-btn" onclick="deleteOrder(${index})">Eliminar</button>`;
-
+            
+            // Insertar el contenedor del pedido en el historial
             orderHistoryContainer.appendChild(orderDiv);
 
             // Si el pedido está siendo editado, mostrar la sección de edición.
@@ -296,11 +300,6 @@ function updateOrderHistory() {
 
 // Función para agregar un producto al pedido editado.
 function addProductToOrder(order, producto, precio, categoria) {
-    const confirmAdd = confirm(`¿Deseas añadir "${producto}" al pedido?`);
-    if (!confirmAdd) {
-        return; // Salir si el usuario cancela
-    }
-
     order.productos.push({ producto, precio, categoria });
     recalculateTotal(order);
     updateOrderHistory();
@@ -308,11 +307,6 @@ function addProductToOrder(order, producto, precio, categoria) {
 
 // Función para eliminar un producto de un pedido editado.
 function removeProductFromOrder(index) {
-    const confirmRemove = confirm('¿Estás seguro de eliminar este producto del pedido?');
-    if (!confirmRemove) {
-        return; // Salir si el usuario cancela
-    }
-    
     const order = orderHistory[editingOrderIndex];
     order.productos.splice(index, 1);
     recalculateTotal(order);
