@@ -15,7 +15,9 @@ body, html {
     margin: 0 auto; /* Centrado */
     height: 100vh; /* Usa toda la altura de la pantalla */
     background-image: url('./fuego.jpg');
-    background-size: contain;
+    background-size: 2400px 1080px; /* Ajusta manualmente el tamaño */
+    background-repeat: no-repeat; /* No repetir */
+    background-position: center center; /* Centrar la imagen */
     display: flex; /* Usamos Flexbox */
     flex-direction: column; /* Disposición vertical */
     border-radius: 15px; /* Bordes redondeados */
