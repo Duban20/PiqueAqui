@@ -14,6 +14,7 @@ body, html {
     width: 100%; /* Ocupa todo el ancho disponible */
     margin: 0 auto; /* Centrado */
     height: 100vh; /* Usa toda la altura de la pantalla */
+    background-image: url('./imagenes/fuego.jpg');
     display: flex; /* Usamos Flexbox */
     flex-direction: column; /* Disposición vertical */
     border-radius: 15px; /* Bordes redondeados */
