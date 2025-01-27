@@ -243,35 +243,3 @@ button {
     border: none; /* Elimina el borde del botón */
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  z-index: 1000;
-  padding: 20px;
-  width: 80%;
-  max-width: 500px;
-}
-
-.modal-content {
-  position: relative;
-}
-
-.modal ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.modal li {
-  margin: 10px 0;
-}
-
-.modal p {
-  font-weight: bold;
-  margin-top: 30px;
-  text-align: left;
-}
