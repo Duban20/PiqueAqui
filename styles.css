@@ -17,7 +17,6 @@ body, html {
     height: 100vh; /* Usa toda la altura de la pantalla */
     background-image: url('./fuego.avif');
     background-size: cover;
-    background-size: 420px 800px; /* Ajusta manualmente el tamaño */
     background-repeat: no-repeat; /* No repetir */
     background-position: center center; /* Centrar la imagen */
     display: flex; /* Usamos Flexbox */
