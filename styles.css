@@ -167,6 +167,9 @@ body, html {
 }
 
 .close-btn {
+    position: absolute;
+    top: 10px;   /* Distancia desde el borde superior */
+    right: 15px; /* Distancia desde el borde derecho */
     font-size: 30px; /* Tamaño de fuente del botón de cierre */
     background-color: #dc3545; /* Color de fondo rojo */
     background-size: 50px 50px; /* Tamaño fijo del fondo del botón */
