@@ -28,7 +28,8 @@ const catalogo = {
         "Agua": 3000,
         "Agua Saborizada": 2000,
         "Postobón": 4000,
-        "CocaCola": 4000
+        "CocaCola": 4000,
+        "Quatro": 4000
     }
 };
 
