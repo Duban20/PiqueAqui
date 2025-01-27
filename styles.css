@@ -16,7 +16,6 @@ body, html {
     height: 100vh; /* Usa toda la altura de la pantalla */
     background-image: url('./fuego.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
     background-position: center;
     display: flex; /* Usamos Flexbox */
     flex-direction: column; /* Disposición vertical */
