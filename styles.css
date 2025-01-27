@@ -58,7 +58,7 @@ body, html {
     border: 1px solid #ccc; /* Borde gris alrededor de la lista */
     padding: 10px; /* Relleno dentro de la lista */
     border-radius: 15px; /* Bordes redondeados */
-    background-color: white; /* Fondo blanco */
+    background-color: background-color: rgba(27, 24, 19); 
     margin-bottom: 20px; /* Espacio debajo de la lista */
 }
 
