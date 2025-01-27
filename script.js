@@ -300,6 +300,11 @@ function updateOrderHistory() {
 
 // Función para agregar un producto al pedido editado.
 function addProductToOrder(order, producto, precio, categoria) {
+    const confirmAdd = confirm(`¿Deseas añadir "${producto}" al pedido?`);
+    if (!confirmAdd) {
+        return; // Salir si el usuario cancela
+    }
+
     order.productos.push({ producto, precio, categoria });
     recalculateTotal(order);
     updateOrderHistory();
@@ -307,6 +312,11 @@ function addProductToOrder(order, producto, precio, categoria) {
 
 // Función para eliminar un producto de un pedido editado.
 function removeProductFromOrder(index) {
+    const confirmRemove = confirm('¿Estás seguro de eliminar este producto del pedido?');
+    if (!confirmRemove) {
+        return; // Salir si el usuario cancela
+    }
+    
     const order = orderHistory[editingOrderIndex];
     order.productos.splice(index, 1);
     recalculateTotal(order);
