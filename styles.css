@@ -54,13 +54,31 @@ body, html {
     font-weight: bold;
 }
 
+.order-history input {
+    flex: 1; /* Hace que el campo de entrada ocupe todo el espacio disponible */
+    padding: 7px; /* Relleno dentro del campo de entrada */
+    font-size: 13px; /* Tamaño de la fuente */
+    border: 1px solid #ccc; /* Borde gris claro alrededor del campo */
+    border-radius: 9px; /* Bordes redondeados */
+    background-color: rgb(82, 67, 67); 
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el texto de marcador de posición (placeholder) */
+.order-history input::placeholder {
+    color: #ffffff; /* Color del texto del placeholder */
+    font-weight: normal; /* Eliminar la negrita del texto del placeholder */
+}
+
 /* Lista de los productos */
 .product-list {
     max-height: 1000px; /* Limita la altura máxima de la lista a 400px */
     overflow-y: auto; /* Permite desplazarse hacia abajo si el contenido es más largo */
     border: 2px solid #ccc; /* Borde gris alrededor de la lista */
-    padding: 10px; /* Relleno dentro de la lista */
-    border-radius: 15px; /* Bordes redondeados */
+    padding: 15px; /* Relleno dentro de la lista */
+    border-radius: 10px; /* Bordes redondeados */
     margin-bottom: 20px; /* Espacio debajo de la lista */
 }
 
@@ -74,14 +92,15 @@ body, html {
     display: block; /* Hace que el botón ocupe todo el ancho disponible */
     width: 100%; /* El botón tiene un ancho completo */
     padding: 10px; /* Relleno dentro del botón */
-    margin: 5px 0; /* Espacio vertical entre botones */
+    margin: 10px 0; /* Espacio vertical entre botones */
     background-color: #b5c200; /* Color de fondo */
     color: #333; /* Color del texto */
     border: none; /* Elimina el borde del botón */
-    border-radius: 13px; /* Bordes redondeados */
+    border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor cuando se pasa por encima */
-    text-align: left; /* Alinea el texto a la izquierda */
+    text-align: center; /* Alinea el texto a la izquierda */
     font-weight: bold; /* Fuente en negrita */
+    font-size: 15px;
 }
 
 .product-list button:hover {
@@ -90,7 +109,7 @@ body, html {
 
 /* total de la compra */
 .total {
-    font-size: 20px; /* Tamaño de fuente más grande */
+    font-size: 25px; /* Tamaño de fuente más grande */
     font-weight: bold; /* Fuente en negrita */
     margin-bottom: 20px; /* Espacio debajo */
     color: #b5c200; /* Color gris oscuro */
@@ -104,7 +123,7 @@ body, html {
     font-weight: 700; /* Fuente en negrita */
     color: rgb(51, 51, 51); /* Texto negro */
     border: none; /* Sin borde */
-    border-radius: 10px; /* Bordes redondeados */
+    border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor cuando se pasa por encima */
 }
 
@@ -140,6 +159,13 @@ body, html {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave alrededor del popup */
 }
 
+.order-history {
+    display: flex;
+    flex-direction: column; /* Asegura que los pedidos estén en columnas */
+    gap: 10px; /* Espaciado entre los pedidos */
+    margin-top: 40px; /* Margen superior */
+}
+
 .close-btn {
     font-size: 30px; /* Tamaño de fuente del botón de cierre */
     background-color: #dc3545; /* Color de fondo rojo */
@@ -150,6 +176,10 @@ body, html {
     border-radius: 10px; /* Bordes redondeados */
     float: right; /* Coloca el botón a la derecha */
     padding: 1px 10px; /* Relleno */
+    position: fixed; /* Permite ajustar con top y left */
+    top: 8px; /* Ajusta la distancia desde la parte superior */
+    left: 362px; /* Ajusta la distancia desde la izquierda */
+    z-index: 1000; /* Lo coloca por encima de otros elementos */
 }
 
 /* titulo principal */
@@ -181,11 +211,11 @@ body, html {
     font-weight: bold; /* Texto en negrita */
     color: white; /* Texto blanco */
     border: none; /* Sin borde */
-    padding: 10px 16px; /* Relleno */
+    padding: 10px 12px; /* Relleno */
     margin: 5px; /* Espacio alrededor */
-    border-radius: 10px; /* Bordes redondeados */
+    border-radius: 5px; /* Bordes redondeados */
     cursor: pointer; /* Cambia el cursor al pasar el mouse */
-    font-size: 14px; /* Tamaño de la fuente */
+    font-size: 13px; /* Tamaño de la fuente */
 }
 
 .delete-history-btn:hover, .red-btn:hover {
@@ -215,7 +245,7 @@ body, html {
 
 /* estilo de la seccion de edicion */
 .edit-section {
-    background-color: #3a342b; /* Fondo gris claro */
+    background-color: #3b2525; /* Fondo gris claro */
     padding: 10px; /* Relleno dentro de la sección */
     border: 1px solid #dee2e6; /* Borde gris claro */
     border-radius: 5px; /* Bordes redondeados */
@@ -240,4 +270,12 @@ body, html {
 button {
     outline: none; /* Elimina el contorno del botón */
     border: none; /* Elimina el borde del botón */
+}
+
+.order-container {
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(167, 60, 60, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
