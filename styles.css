@@ -133,7 +133,6 @@ body, html {
 
 /* Estilo del popup */
 .popup {
-    position: relative;
     display: none; /* El popup está oculto por defecto */
     position: fixed; /* Fija el popup en la pantalla */
     top: 0; /* Se coloca en la parte superior */
@@ -177,10 +176,6 @@ body, html {
     border-radius: 10px; /* Bordes redondeados */
     float: right; /* Coloca el botón a la derecha */
     padding: 1px 10px; /* Relleno */
-    position: absolute; /* Permite ajustar con top y left */
-    top: 51px; /* Ajusta la distancia desde la parte superior */
-    left: 440px; /* Ajusta la distancia desde la izquierda */
-    z-index: 1000; /* Lo coloca por encima de otros elementos */
 }
 
 /* titulo principal */
