@@ -80,6 +80,10 @@ function saveOrdersToLocalStorage() {
 }
 
 function renderProducts() {
+    const mainProductList = document.getElementById('productList'); // Contenedor principal
+
+    let activeProductList = null; // Almacena la categoría desplegada actualmente
+
     for (const [categoria, productos] of Object.entries(catalogo)) {
         // Crear un contenedor para cada categoría
         const categoryContainer = document.createElement('div');
@@ -106,13 +110,20 @@ function renderProducts() {
             productList.appendChild(productButton);
         }
 
-        // Agregar funcionalidad para mostrar/ocultar la lista de productos
+        // Modificación: Asegurar que solo una categoría esté abierta a la vez
         categoryButton.onclick = () => {
+            if (activeProductList && activeProductList !== productList) {
+                activeProductList.style.display = 'none'; // Cierra la anterior
+            }
+
+            // Alternar visibilidad de la categoría seleccionada
             productList.style.display = productList.style.display === 'none' ? 'block' : 'none';
+
+            // Actualizar la referencia de la lista activa
+            activeProductList = productList.style.display === 'block' ? productList : null;
         };
 
         // Agregar todo al contenedor principal
-        const mainProductList = document.getElementById('productList'); // El contenedor principal en el DOM
         mainProductList.appendChild(categoryContainer);
     }
 }
@@ -162,6 +173,14 @@ function updateProductQuantity(producto) {
 // Función para actualizar el total mostrado en la interfaz.
 function updateTotal() {
     totalDisplay.textContent = `Total: $${total}`;
+
+    // Agregar la clase de animación
+    totalDisplay.classList.add('shake');
+
+    // Remover la clase después de la animación para que se pueda repetir
+    setTimeout(() => {
+        totalDisplay.classList.remove('shake');
+    }, 500);
 }
 
 // Función para obtener la fecha y hora formateadas en formato 12 horas con AM/PM.
@@ -253,9 +272,15 @@ function deleteOrder(index) {
 
 // Función para habilitar la edición de un pedido.
 function editOrder(index) {
-    editingOrderIndex = index;
+    // Si ya se está editando el mismo pedido, se cierra la edición
+    if (editingOrderIndex === index) {
+        editingOrderIndex = null; // Cierra la edición
+    } else {
+        editingOrderIndex = index; // Activa la edición en ese pedido
+    }
     updateOrderHistory();
 }
+
 
 // Función para actualizar la vista del historial de pedidos.
 function updateOrderHistory() {
@@ -281,6 +306,11 @@ function updateOrderHistory() {
                 ? `<button class="green-btn listo-btn" disabled>✓ Listo</button>` // Botón deshabilitado
                 : `<button class="green-btn listo-btn" onclick="marcarPedidoListo(${index})">¡Listo!</button>`;
 
+                // Botón "Editar" (deshabilitado si el pedido está listo)
+            let editButtonHTML = order.listo
+                ? `<button class="green-btn" disabled>Editar</button>`  
+                : `<button class="green-btn" onclick="editOrder(${index})">Editar</button>`;
+
             // Crear el contenido del pedido
             orderDiv.innerHTML = 
                 `<h4>${order.pedidoId}</h4>
@@ -291,7 +321,7 @@ function updateOrderHistory() {
                     ${summarizeProducts(order.productos).map(p => `<li>${p.producto} (${p.categoria}) x${p.cantidad}: $${p.total}</li>`).join('')}
                 </ul>
                 <p><strong>Total:</strong> $${order.total}</p> <!-- Modificado para mostrar "Total" en negrita -->
-                <button class="green-btn" onclick="editOrder(${index})">Editar</button>
+                ${editButtonHTML} 
                 ${listoButtonHTML}
                 <button class="red-btn" onclick="deleteOrder(${index})">Eliminar</button>`;
 
@@ -312,9 +342,12 @@ function updateOrderHistory() {
 }
 
 function marcarPedidoListo(index, boton) {
-    orderHistory[index].listo = true; // Marcar como listo
-    localStorage.setItem("orders", JSON.stringify(orderHistory)); // Guardar en localStorage
-    updateOrderHistory(); // Actualizar la vista
+    const confirmar = confirm("¿Estás seguro de que este pedido está listo?");
+    if (confirmar) {
+        orderHistory[index].listo = true; // Marcar como listo
+        localStorage.setItem("orders", JSON.stringify(orderHistory)); // Guardar en localStorage
+        updateOrderHistory(); // Actualizar la vista
+    }
 }
 
 function loadOrderHistory() {
@@ -407,46 +440,79 @@ function summarizeProducts(products) {
 function createEditSection(order) {
     const editSection = document.createElement('div');
     editSection.classList.add('edit-section');
+    
     editSection.innerHTML = `
-        <h4>Editando ${order.pedidoId}</h4>
-        <label for="editMesa">Mesa:</label>
-        <input type="text" id="editMesa" value="${order.mesa || ''}" placeholder="Número de mesa">
-        <label for="editDescripcion">Descripción:</label>
-        <input type="text" id="editDescripcion" value="${order.descripcion}" placeholder="Descripción del pedido">
-        <h5>Agregar Producto</h5>
-        <div id="editProductList"></div>
-        <button class="green-btn" onclick="saveEditedOrder()">Guardar cambios</button>
-        <button class="red-btn" onclick="cancelEdit()">Cancelar</button>
+        <h4>Editando Pedido #${order.pedidoId}</h4>
+
+        <fieldset>
+            <legend>Detalles del Pedido</legend>
+            <label for="editMesa">Mesa:</label>
+            <input type="text" id="editMesa" value="${order.mesa || ''}" placeholder="Número de mesa">
+            
+            <label for="editDescripcion">Descripción:</label>
+            <input type="text" id="editDescripcion" value="${order.descripcion}" placeholder="Ej: Sin cebolla, extra queso">
+        </fieldset>
+
+        <fieldset>
+            <legend>Productos en el Pedido</legend>
+            <div id="editProductList"></div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Agregar Producto</legend>
+            <select id="productSelect">
+                <option value="" disabled selected>Selecciona un producto</option>
+                ${Object.entries(catalogo).map(([categoria, productos]) =>
+                    Object.entries(productos).map(([producto, precio]) => 
+                        `<option value="${producto}" data-precio="${precio}" data-categoria="${categoria}">
+                            ${producto} (${categoria}) - $${precio}
+                        </option>`
+                    ).join('')
+                ).join('')}
+            </select>
+            <button class="blue-btn" id="addProductBtn">Añadir Producto</button>
+        </fieldset>
+
+        <div class="edit-buttons">
+            <button class="green-btn" onclick="saveEditedOrder()">✅ Guardar cambios</button>
+            <button class="red-btn" onclick="cancelEdit()">❌ Cancelar</button>
+        </div>
     `;
 
     const productList = editSection.querySelector('#editProductList');
 
-    // Lista los productos que ya están en el pedido.
+    // Lista los productos ya añadidos al pedido.
     order.productos.forEach((producto, index) => {
         const productDiv = document.createElement('div');
+        productDiv.classList.add('product-item');
         productDiv.innerHTML = `
             <span>${producto.producto} (${producto.categoria}) - $${producto.precio}</span>
-            <button class="red-btn" onclick="removeProductFromOrder(${index})">Eliminar</button>
+            <button class="red-btn" onclick="removeProductFromOrder(${index})">🗑 Eliminar</button>
         `;
         productList.appendChild(productDiv);
     });
 
-    // Agrega los botones para añadir más productos del catálogo.
-    for (const [categoria, productos] of Object.entries(catalogo)) {
-        const categoryDiv = document.createElement('div');
-        const categoryTitle = document.createElement('h5');
-        categoryTitle.textContent = categoria;
-        categoryDiv.appendChild(categoryTitle);
+    // Añadir el evento para el botón "Añadir Producto"
+    const addProductBtn = editSection.querySelector('#addProductBtn');
+    addProductBtn.onclick = function() {
+        // Obtener el producto seleccionado del select
+        const select = document.getElementById('productSelect');
+        const selectedOption = select.options[select.selectedIndex];
 
-        for (const [producto, precio] of Object.entries(productos)) {
-            const button = document.createElement('button');
-            button.classList.add('blue-btn');
-            button.textContent = `${producto}: $${precio}`;
-            button.onclick = () => addProductToOrder(order, producto, precio, categoria);
-            categoryDiv.appendChild(button);
+        if (selectedOption.value) {
+            const producto = selectedOption.value;
+            const precio = parseFloat(selectedOption.getAttribute('data-precio'));
+            const categoria = selectedOption.getAttribute('data-categoria');
+
+            // Llamar a la función para añadir el producto al pedido
+            addProductToOrder(order, producto, precio, categoria);
+
+            // Limpiar la selección
+            select.selectedIndex = 0;
+        } else {
+            alert("Por favor, selecciona un producto.");
         }
-        productList.appendChild(categoryDiv);
-    }
+    };
 
     return editSection;
 }
