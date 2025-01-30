@@ -278,3 +278,10 @@ button {
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.pedido-listo {
+    background-color: #c8e6c9; /* Verde claro */
+    border: 2px solid #4CAF50; /* Borde verde */
+    color: #2e7d32; /* Texto verde oscuro */
+    font-weight: bold;
+}
