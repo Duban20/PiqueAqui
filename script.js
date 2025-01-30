@@ -3,14 +3,7 @@
 const catalogo = {
     "Picaditas": {
         "Picadita Clásica": 8000,
-        "Picadita Dúo Chori-Clásica": 14000,
-        "Picadita Burichorizo": 9000,
-        "Picadita Dúo Butichorizo": 16000,
-        "Morcilla": 6000,
-        "Picadita Pique Aquí": 15000,
-        "Picadita Sexy": 13000,
-        "Picadita Exótica": 14000,
-        "Picadita Mampana": 23000
+        
     },
     "Maduritos": {
         "Madurito Relleno Fundido": 8000,
