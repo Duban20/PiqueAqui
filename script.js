@@ -1,3 +1,4 @@
+
 // Objeto que contiene el catálogo de productos, organizado por categorías y precios.
 const catalogo = {
     "Picaditas": {
@@ -36,15 +37,6 @@ const catalogo = {
 // Variable global para el contador de pedidos.
 let orderCounter = JSON.parse(localStorage.getItem('orderCounter')) || 1;
 
-// Función para resetear el contador de pedidos
-function resetOrderCounter() {
-    if (confirm('¿Estás seguro de resetear el contador de pedidos? Esto no afectará el historial.')) {
-        orderCounter = 1; // Reinicia el contador a 1
-        localStorage.setItem('orderCounter', JSON.stringify(orderCounter)); // Guarda el nuevo valor en localStorage
-        alert('El contador de pedidos ha sido reseteado.');
-    }
-}
-
 // Función para guardar el contador de pedidos en el almacenamiento local.
 function saveOrderCounter() {
     localStorage.setItem('orderCounter', JSON.stringify(orderCounter));
@@ -67,6 +59,11 @@ const productList = document.getElementById('productList');
 const totalDisplay = document.getElementById('total');
 const popup = document.getElementById('popup');
 const orderHistoryContainer = document.getElementById('orderHistory');
+
+// Asignar eventos a los botones
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("clearHistoryBtn").addEventListener("click", clearOrderHistory);
+});
 
 // Función para cargar los pedidos guardados desde el almacenamiento local.
 function initializeOrders() {
@@ -162,20 +159,6 @@ function updateProductQuantity(producto) {
     });
 }
 
-// Función para actualizar el carrito visualmente
-function updateCartDisplay() {
-    const cartItems = document.getElementById('cart-items');
-    cartItems.innerHTML = ''; // Limpiamos el carrito actual
-    
-    // Recorremos el carrito y mostramos los productos con las cantidades
-    for (const producto in cart) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${producto}: x${cart[producto]}`;
-        cartItems.appendChild(listItem);
-    }
-}
-
-
 // Función para actualizar el total mostrado en la interfaz.
 function updateTotal() {
     totalDisplay.textContent = `Total: $${total}`;
@@ -209,7 +192,7 @@ function finalizeOrder() {
         descripcion,
         productos: [...selectedProducts],
         total,
-        pedidoId: `Pedido ${orderCounter}`,
+        pedidoId: `Pedido ${getNextPedidoId()}`,
         timestamp: hora // Obtiene la fecha y hora formateadas
     };
 
@@ -227,10 +210,26 @@ function finalizeOrder() {
     updateOrderHistory();
 }
 
+// Funcion para eliminar el historial de pedidos
+function clearOrderHistory() {
+    if (confirm('¿Estás seguro de eliminar todo el historial de pedidos?')) {
+        orderHistory = []; // Vaciar el historial
+        saveOrdersToLocalStorage(); // Guardar el cambio en localStorage
+        updateOrderHistory(); // Actualizar la vista
+        alert('Historial de pedidos eliminado.');
+    }
+}
+
 // Función para limpiar los campos de la mesa y la descripción.
 function clearMainFields() {
     document.getElementById('mesa').value = '';
     document.getElementById('descripcion').value = '';
+}
+
+function cerrarPopup(event) {
+    if (event.target.id === "popup") { // Solo cierra si se hace clic fuera
+        document.getElementById("popup").style.display = "none";
+    }
 }
 
 // Función para alternar la visibilidad del historial de pedidos.
@@ -272,6 +271,16 @@ function updateOrderHistory() {
             const orderDiv = document.createElement('div');
             orderDiv.classList.add('order-container'); // Agregar la clase para el contenedor del pedido
             
+            // Aplicar clase si el pedido está listo
+            if (order.listo) {
+                orderDiv.classList.add("pedido-listo");
+            }
+
+            // Si el pedido está listo, deshabilitar el botón
+            let listoButtonHTML = order.listo
+                ? `<button class="green-btn listo-btn" disabled>✓ Listo</button>` // Botón deshabilitado
+                : `<button class="green-btn listo-btn" onclick="marcarPedidoListo(${index})">¡Listo!</button>`;
+
             // Crear el contenido del pedido
             orderDiv.innerHTML = 
                 `<h4>${order.pedidoId}</h4>
@@ -283,7 +292,9 @@ function updateOrderHistory() {
                 </ul>
                 <p><strong>Total:</strong> $${order.total}</p> <!-- Modificado para mostrar "Total" en negrita -->
                 <button class="green-btn" onclick="editOrder(${index})">Editar</button>
+                ${listoButtonHTML}
                 <button class="red-btn" onclick="deleteOrder(${index})">Eliminar</button>`;
+
             
             // Insertar el contenedor del pedido en el historial
             orderHistoryContainer.appendChild(orderDiv);
@@ -295,7 +306,28 @@ function updateOrderHistory() {
             }
         });
     }
+
+    // Guardar en localStorage
+    localStorage.setItem("orders", JSON.stringify(orderHistory));
 }
+
+function marcarPedidoListo(index, boton) {
+    orderHistory[index].listo = true; // Marcar como listo
+    localStorage.setItem("orders", JSON.stringify(orderHistory)); // Guardar en localStorage
+    updateOrderHistory(); // Actualizar la vista
+}
+
+function loadOrderHistory() {
+    const savedOrders = localStorage.getItem("orders");
+    if (savedOrders) {
+        orderHistory = JSON.parse(savedOrders);
+    }
+    updateOrderHistory(); // Refrescar la vista
+}
+
+// Cargar los pedidos cuando la página se abre
+document.addEventListener("DOMContentLoaded", loadOrderHistory);
+
 
 // Función para agregar un producto al pedido editado.
 function addProductToOrder(order, producto, precio, categoria) {
