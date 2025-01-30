@@ -38,11 +38,11 @@
             <button class="green-btn" onclick="finalizeOrder()">Finalizar Pedido</button>
             <!-- Botón para ver el historial de pedidos -->
             <button class="green-btn" onclick="toggleOrderHistory()">Ver Historial de Pedidos</button>
-             <button class="red-btn" onclick="resetOrderCounter()">Resetear Contador de Pedidos</button>
+            <button id="clearHistoryBtn" class="red-btn">Eliminar Historial</button>
         </div>
 
         <!-- Ventana emergente (popup) para mostrar el historial de pedidos -->
-        <div class="popup" id="popup">
+        <div class="popup" id="popup" onclick="cerrarPopup(event)">
             <div class="popup-content">
                 <!-- Botón para cerrar el popup de historial de pedidos -->
                 <span class="close-btn" onclick="toggleOrderHistory()">&times;</span>
