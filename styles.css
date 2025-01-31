@@ -378,7 +378,8 @@ body, html {
 
 /* Fieldsets */
 .edit-section fieldset {
-    max-height: 200px;
+    max-height: 300px;
+    overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
