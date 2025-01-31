@@ -107,7 +107,7 @@ body, html {
 
 /* Lista de los productos */
 .product-list {
-    max-height: 1000px; /* Limita la altura máxima de la lista a 400px */
+    max-height: 1200px; /* Limita la altura máxima de la lista */
     overflow-y: auto; /* Permite desplazarse hacia abajo si el contenido es más largo */
     border: 2px solid #ccc; /* Borde gris alrededor de la lista */
     padding: 15px; /* Relleno dentro de la lista */
